@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Company Form</title>
+  <style>
+    .product-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .product-input {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Company Form</h1>
+
+  <form id="companyForm" action="submit.php" method="POST">
+    <label for="companyName">Company Name:</label>
+    <input type="text" id="companyName" name="companyName" required><br><br>
+
+    <label for="userName">User Name:</label>
+    <input type="text" id="userName" name="userName" required><br><br>
+
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="tel" id="phoneNumber" name="phoneNumber" required><br><br>
+
+    <label for="paymentState">Payment State:</label>
+    <input type="text" id="paymentState" name="paymentState" required><br><br>
+
+    <label for="productList">Product List:</label>
+    <div id="productList">
+      <div class="product-row">
+        <input type="text" class="product-input" name="productName[]" placeholder="Product Name" required>
+        <input type="text" class="product-input" name="productCode[]" placeholder="Product Code" required>
+        <input type="number" class="product-input" name="productPrice[]" placeholder="Product Price" required>
+        <button type="button" onclick="removeProduct(this)">Remove</button>
+      </div>
+    </div>
+    <button type="button" onclick="addProduct()">Add Product</button><br><br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    function addProduct() {
+      const productList = document.getElementById('productList');
+
+      const productRow = document.createElement('div');
+      productRow.classList.add('product-row');
+
+      const productNameInput = document.createElement('input');
+      productNameInput.type = 'text';
+      productNameInput.classList.add('product-input');
+      productNameInput.name = 'productName[]';
+      productNameInput.placeholder = 'Product Name';
+      productNameInput.required = true;
+
+      const productCodeInput = document.createElement('input');
+      productCodeInput.type = 'text';
+      productCodeInput.classList.add('product-input');
+      productCodeInput.name = 'productCode[]';
+      productCodeInput.placeholder = 'Product Code';
+      productCodeInput.required = true;
+
+      const productPriceInput = document.createElement('input');
+      productPriceInput.type = 'number';
+      productPriceInput.classList.add('product-input');
+      productPriceInput.name = 'productPrice[]';
+      productPriceInput.placeholder = 'Product Price';
+      productPriceInput.required = true;
+
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.textContent = 'Remove';
+      removeButton.onclick = function () {
+        removeProduct(this);
+      };
+
+      productRow.appendChild(productNameInput);
+      productRow.appendChild(productCodeInput);
+      productRow.appendChild(productPriceInput);
+      productRow.appendChild(removeButton);
+
+      productList.appendChild(productRow);
+    }
+
+    function removeProduct(button) {
+      const productRow = button.parentNode;
+      const productList = productRow.parentNode;
+      productList.removeChild(productRow);
+    }
+  </script>
+</body>
+</html>
